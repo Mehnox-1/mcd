@@ -168,32 +168,161 @@ SELECT service , COUNT(id_employes) AS nombre FROM employes GROUP BY service  HA
 -- ***************************
 -- Exercices
 -- ***************************
+
 -- 1. Afficher le service de l'employé 547
 
+SELECT id_employes, service FROM employes WHERE id_employes=547;
+
++-------------+------------+
+| id_employes | service    |
++-------------+------------+
+|         547 | commercial |
++-------------+------------+
 
 -- 2. Afficher la date d'embauche d'Amandine
 
+SELECT date_embauche FROM employes WHERE prenom="Amandine";
+
++---------------+
+| date_embauche |
++---------------+
+| 2010-01-23    |
++---------------+
 
 -- 3. Afficher le nombre de commerciaux
 
+SELECT COUNT(id_employes) FROM employes WHERE service="commercial";
+
++---------------+
+| date_embauche |
++---------------+
+| 2010-01-23    |
++---------------+
 
 -- 4. Afficher le salaire des commerciaux sur 1 année
 
+SELECT SUM(salaire*12) FROM employes WHERE service="commercial";
+
++-----------------+
+| SUM(salaire*12) |
++-----------------+
+|          184200 |
++-----------------+
 
 -- 5. Afficher le salaire moyen par service
 
+SELECT service, AVG(salaire) FROM employes GROUP BY service;
+
++---------------+-----------------------+
+| service       | ROUND(AVG(salaire),2) |
++---------------+-----------------------+
+| assistant     |               1775.00 |
+| commercial    |               2558.33 |
+| communication |               1500.00 |
+| comptabilite  |               1900.00 |
+| direction     |               4750.00 |
+| informatique  |               1983.33 |
+| juridique     |               3200.00 |
+| production    |               2225.00 |
+| secretariat   |               1496.67 |
++---------------+-----------------------+
 
 -- 6. Afficher le nombre de recrutement sur 2010
 
+SELECT COUNT(id_employes) AS nb_recrument_2010 FROM employes WHERE date_embauche BETWEEN '2010-01-01' AND '2010-12-31';
+
+SELECT COUNT(id_employes) AS nb_recrument_2010 FROM employes WHERE date_embauche LIKE '2010%';
+
+SELECT COUNT(id_employes) AS nb_recrument_2010 FROM employes WHERE date_embauche >= '2010-01-01' AND date_embauche <= '2010-12-31';
+
++-------------------+
+| nb_recrument_2010 |
++-------------------+
+|                 2 |
++-------------------+
 
 -- 7. Afficher le nombre de services DIFFERENTS
 
+SELECT COUNT(DISTINCT service) AS service_de_notre_entreprise FROM employes;
+
++-----------------------------+
+| service_de_notre_entreprise |
++-----------------------------+
+|                           9 |
++-----------------------------+
 
 -- 8. Afficher le nombre d'employés par service
 
+SELECT COUNT(id_employes), service FROM employes GROUP BY service;
+
++--------------------+---------------+
+| COUNT(id_employes) | service       |
++--------------------+---------------+
+|                  1 | assistant     |
+|                  6 | commercial    |
+|                  1 | communication |
+|                  1 | comptabilite  |
+|                  2 | direction     |
+|                  3 | informatique  |
+|                  1 | juridique     |
+|                  2 | production    |
+|                  3 | secretariat   |
++--------------------+---------------+
 
 -- 9. Afficher les informations de l'employé du service commercial gagnant le salaire le plus élevé
 
+SELECT * FROM employes WHERE service='commercial' ORDER BY salaire DESC LIMIT 0,1;
+
++-------------+--------+--------+------+------------+---------------+---------+
+| id_employes | prenom | nom    | sexe | service    | date_embauche | salaire |
++-------------+--------+--------+------+------------+---------------+---------+
+|         415 | Thomas | Winter | m    | commercial | 2000-05-03    |    3550 |
++-------------+--------+--------+------+------------+---------------+---------+
 
 -- 10. Afficher l'employé ayant été embauché en dernier
+
+SELECT * FROM employes ORDER BY date_embauche DESC LIMIT 1;
++-------------+-----------+--------+------+-----------+---------------+---------+
+| id_employes | prenom    | nom    | sexe | service   | date_embauche | salaire |
++-------------+-----------+--------+------+-----------+---------------+---------+
+|         990 | Stephanie | Lafaye | f    | assistant | 2015-06-02    |    1775 |
++-------------+-----------+--------+------+-----------+---------------+---------+
+
+-- ******************************************************
+--  REQUETES D'insertion (CREATE le C de notre CRUD)
+-- ******************************************************
+
+-- INSERT INTO
+
+INSERT INTO employes (prenom, nom, sexe, date_embauche, service, salaire) VALUES ('cesaire', 'desaulle',
+ 'm',NOW() , 'informatique', '2500'); -- L'ordre des champs et des valeurs entre les 2 paires de ()
+ -- doit etre le même respecté.L'id_employes n'est pas necessaire car clé primaire donc auto-incrémenté par la BDD
+
+-- INSERTION sans préciser les champs ou colonnes: 
+INSERT INTO employes VALUES (NULL, 'john', 'doe', 'm', 'commercial', NOW(), 2000 ); -- on peut inserer un employé sans préciser la liste des champs si les valeurs données respectent l'ordre et le type des champs dans la BDD,
+-- y compris l'id_employes que nous mettons à NULL afin qu'il soit auto-incrémenté par la BDD
+
+-- UPDATE
+UPDATE employes SET salaire =5000, service='direction' WHERE prenom='cesaire';
+
+-- A NE PAS FAIRE / Un update sans clause WHERE. 
+UPDATE employes SET salaire =5000;
+
+-- REPLACE
+REPLACE INTO employes (id_employes, prenom, nom, sexe, service date_embauche, salaire) VALUES (2000,
+ 'john', 'doe', 'm' ,'commercial', NOW(), 50000);
+
+-- ****************************************************************************************
+--      REQUETES DE SUPPRESSION
+-- ****************************************************************************************
+
+
+-- DELETE
+DELETE FROM employes WHERE id_employes=2000; --suppression de l'employe d'id 2000
+
+DELETE FROM employes WHERE id_employes=2000 OR id_employes=2001;
+
+
+-- A NE PAS FAIRE : DELETE sans clause WHERE
+DELETE FROM employes; -- revient vider la table employes.
 

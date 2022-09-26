@@ -1,0 +1,32 @@
+mehna@LAPTOP-3M81JHFC MINGW64 ~/OneDrive/Bureau/Modele conceptuel MYSQL
+$ git init
+Initialized empty Git repository in C:/Users/mehna/OneDrive/Bureau/Modele conceptuel MYSQL/.git/
+
+mehna@LAPTOP-3M81JHFC MINGW64 ~/OneDrive/Bureau/Modele conceptuel MYSQL (master)
+$ git remote add origin https://github.com/Mehnox-1/mcd.git
+
+mehna@LAPTOP-3M81JHFC MINGW64 ~/OneDrive/Bureau/Modele conceptuel MYSQL (master)
+$ git add .
+warning: in the working copy of '02-entreprise/entreprise_employes.sql', LF will be replaced by CRLF the next time Git touches it
+
+mehna@LAPTOP-3M81JHFC MINGW64 ~/OneDrive/Bureau/Modele conceptuel MYSQL (master)
+$ git commit -m "Mon premier commit"
+[master (root-commit) 888a947] Mon premier commit
+ 2 files changed, 231 insertions(+)
+ create mode 100644 02-entreprise/entreprise.sql
+ create mode 100644 02-entreprise/entreprise_employes.sql
+
+mehna@LAPTOP-3M81JHFC MINGW64 ~/OneDrive/Bureau/Modele conceptuel MYSQL (master)
+$ git push -u origin master
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (5/5), 3.91 KiB | 3.91 MiB/s, done.
+Total 5 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/Mehnox-1/mcd.git
+ * [new branch]      master -> master
+branch 'master' set up to track 'origin/master'.
+
+mehna@LAPTOP-3M81JHFC MINGW64 ~/OneDrive/Bureau/Modele conceptuel MYSQL (master)
+$
